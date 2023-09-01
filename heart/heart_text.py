@@ -1,11 +1,17 @@
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
+import os
 import re
+import sys
 import time
 
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 from bs4 import BeautifulSoup
-from heart.HeartDB import HeartDB
-from heart.UpdateDB import UpdateDB
+from heart_db import HeartDB
+from update_db import UpdateDB
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from notify.WeChatNotification import WeChatPub
 
 
@@ -17,8 +23,8 @@ from notify.WeChatNotification import WeChatPub
 class HeartText(object):
     def __init__(self):
         self.TAG = "heart text"
-        self.hint_hours = '19'
-        self.hint_min = '30'
+        self.hint_hours = '12'
+        self.hint_min = '15'
         self.headers = {
             'referer': 'http://www.hnbitebi.com/hlist-11-1.html',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36'
@@ -27,6 +33,7 @@ class HeartText(object):
         self.heart_db = HeartDB()
         self.update_db = UpdateDB()
         self.wechat = WeChatPub()
+        self.isAutoExe = True
 
     def log(self, tag, log):
         print(self.TAG, tag, log)
@@ -159,7 +166,8 @@ class HeartText(object):
         # 每间隔1分3秒执行一次
         # scheduler.add_job(print_time, 'interval', seconds=3, minutes=1)
         # 表示星期一到星期六，每天12：21执行一次
-        heart_scheduler.add_job(heartText.send_msg, 'cron', hour=self.hint_hours, minute=self.hint_min)
+        heart_scheduler.add_job(heartText.send_msg, 'cron', hour=self.hint_hours, minute=self.hint_min, )
+        heart_scheduler.add_job(heartText.tick, 'interval', seconds=0, minutes=5)
         heart_scheduler.start()
         self.log("start_send_scheduler", "启动周期发送情话计划")
 
@@ -171,39 +179,49 @@ class HeartText(object):
         self.heart_db.delete_db_data()
         self.update_db.delete_db_data()
 
+    def tick(self):
+        datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        self.log("tick", 'Tick! The time is: %s' % datetime)
+
 
 if __name__ == '__main__':
     heartText = HeartText()
-    print("1.创建需要表数据\n"
-          "2.删除本地缓存数据\n"
-          "3.根据列表初始数据\n"
-          "4.根据地址初始化数据\n"
-          "5.启动定时发送计划\n"
-          "6.结束程序运行\n")
-    cmd = int(input("输入执行命令序号：\n"))
-    while cmd != -1:
-        print("输入的命令是：", cmd)
-        if cmd == 1:
-            heartText.create_db_tables()
-        elif cmd == 2:
-            heartText.delete_db_data()
-        elif cmd == 3:
-            num = int(input("请输入缓存数据页数:(1-100)\n"))
-            heartText.cache_test(num)
-        elif cmd == 4:
-            net_url = input("请输入网址\n")
-            if len(net_url):
-                heartText.start_1(net_url)
-        elif cmd == 5:
-            heartText.start_send_scheduler()
-        time.sleep(1)
+    heartText.tick()
+    if heartText.isAutoExe:
+        heartText.start_send_scheduler()
+        cmd = int(input("输入任何内容线束运行"))
+    else:
+
         print("1.创建需要表数据\n"
               "2.删除本地缓存数据\n"
               "3.根据列表初始数据\n"
               "4.根据地址初始化数据\n"
               "5.启动定时发送计划\n"
-              "6.结束程序运行\n")
+              "-1.结束程序运行\n")
         cmd = int(input("输入执行命令序号：\n"))
+        while cmd != -1:
+            print("输入的命令是：", cmd)
+            if cmd == 1:
+                heartText.create_db_tables()
+            elif cmd == 2:
+                heartText.delete_db_data()
+            elif cmd == 3:
+                num = int(input("请输入缓存数据页数:(1-100)\n"))
+                heartText.cache_test(num)
+            elif cmd == 4:
+                net_url = input("请输入网址\n")
+                if len(net_url):
+                    heartText.start_1(net_url)
+            elif cmd == 5:
+                heartText.start_send_scheduler()
+            time.sleep(1)
+            print("1.创建需要表数据\n"
+                  "2.删除本地缓存数据\n"
+                  "3.根据列表初始数据\n"
+                  "4.根据地址初始化数据\n"
+                  "5.启动定时发送计划\n"
+                  "-1.结束程序运行\n")
+            cmd = int(input("输入执行命令序号：\n"))
     print("程序结束运行")
     # print(list_1)
     # heartText.start_1("http://www.hnbitebi.com/qh/001.html")
