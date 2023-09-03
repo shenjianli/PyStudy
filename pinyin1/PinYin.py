@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 import urllib.parse
 import zipfile
 from selenium import webdriver
-from selenium.webdriver.safari.options import Options
+
 # http://hanyupinyin.org/
 class PinYin:
     def __init__(self):
@@ -295,7 +295,15 @@ class PinYin:
     def test(self, req_url):
         if self.is_dev:
             print(f'start {req_url} ')
-        self.get_pin_du_dict(req_url)
+        pin_du_dict = self.get_pin_du_dict(req_url)
+        if pin_du_dict is not None and len(pin_du_dict) > 0:
+            for key,value in pin_du_dict.items():
+                print(key,value)
+                for index in range(4):
+                    print(str(index))
+                    mp3_url = 'http://stati.hanyupinyin.org/p/{}.mp3'.format((key + str(index + 1)))
+                    self.save_audio(mp3_url,'{}.mp3'.format((key + str(index + 1))),key)
+                    print(mp3_url)
 
 
     def save_pinyin_mp4(self,url,video_url):
@@ -391,11 +399,11 @@ class PinYin:
             print(e)
     def get_mp4_info(self,req_url):
         try:
-            options = Options()
-            options.add_argument('--headless')
-            options.add_argument('--incognito')
-            options.add_argument("--window-size=1920x1080") #I added this
-            browser = webdriver.Safari(options = options)
+            # options = Options()
+            # options.add_argument('--headless')
+            # options.add_argument('--incognito')
+            # options.add_argument("--window-size=1920x1080") #I added this
+            browser = webdriver.Safari()
             browser.get(req_url)
             browser.implicitly_wait(5)  # 等待页面加载完毕，最多等待5s
 
