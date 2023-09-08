@@ -2,9 +2,7 @@
 # -*- coding:utf-8 -*-
 import os.path
 import re
-import threading
 import time
-from multiprocessing import Pool, cpu_count
 import json
 import requests
 from loguru import logger
@@ -12,8 +10,9 @@ from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 import urllib.parse
 import zipfile
+from moviepy.editor import *
 
-# http://m.hanyupinyin.org/
+# http://www.hanyupinyin.cn
 class PinYin:
     def __init__(self):
         self.url = "http://www.hanyupinyin.cn/biao/shengmu/b.html"
@@ -28,6 +27,7 @@ class PinYin:
         self.project_root_path = os.getcwd()
         self.base_shengdiao_url = "http://du.hanyupinyin.cn/shengdiao.html"
         self.mp3_shengdiao_base_url = "http://du.hanyupinyin.cn/du/pinyin/"
+        self.ke_ben_url = "http://www.hanyupinyin.cn/pinyintu/keben.html"
 
     def get_random_ua(self):
         ua = UserAgent()
@@ -185,7 +185,7 @@ class PinYin:
             os.makedirs(file_path)
         try:
             img = requests.get(src, headers=headers)
-            with open(file_path + os.path.sep + name, 'ab') as f:
+            with open(file_path + os.path.sep + name, 'wb') as f:
                 f.write(img.content)
                 logger.info("{} 保存成功".format(name))
         except:
@@ -292,11 +292,51 @@ class PinYin:
         except Exception as e:
             print(e)
 
+    def start_ke_ben(self):
+        try:
+            headers = {
+                "X-Requested-Width": "XMLHttpRequest",
+                "User-Agent": self.get_random_ua()
+            }
+            if len(self.ke_ben_url) > 0:
+                req = requests.get(self.ke_ben_url, headers=headers)
+                req.encoding = 'utf-8'
+                content = req.text
+                soup = BeautifulSoup(content, 'html.parser')
+
+                sections = soup.find_all(class_='large-8 medium-8 cell')
+                if len(sections) > 0:
+                    for section in sections:
+                        if self.is_dev:
+                            print(f' section {section}')
+                        # img_soup = BeautifulSoup(str(section), 'html.parser')
+                        # img_labels = img_soup.find_all('img')
+                        img_labels = re.findall('<img alt="" src="(.*?)"', str(section))
+                        print("img")
+                        print(img_labels)
+                        if img_labels is not None and len(img_labels) > 0:
+                            ken_ben_data = []
+                            for img in img_labels:
+                                img_url = urllib.parse.urljoin(self.base_url,img)
+                                img_name = img_url[img_url.rfind('/') + 1:]
+                                self.save_images(img_url,img_name,"")
+                                ken_ben_data.append(img_name)
+
+                        self.out_json_file('kenben',ken_ben_data,'')
+                else:
+                    print("未找到 large-8 medium-8 cell 标签")
+        except Exception as e:
+            print(e)
 if __name__ == '__main__':
     pinyin = PinYin()
     # pinyin.download_word_and_zip(pinyin.url)
 
     # pinyin.generate_zip(pinyin.project_root_path,'b')
+
+    # 下载课本图文
+    # pinyin.start_ke_ben()
+    # 下载声调
     pinyin.start_shengdiao()
+    # 下载资源
     pinyin.start()
 
