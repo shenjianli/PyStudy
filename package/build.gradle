@@ -1,0 +1,114 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+apply from: 'dependencies.gradle'
+
+buildscript {
+    ext {
+        kotlin_version = '1.7.10'
+    }
+    repositories {
+        maven {url 'https://s01.oss.sonatype.org/content/repositories/public/'}
+        maven { url 'http://nexus-in.dev.ihuman.com:8081/repository/jcenter/' }
+        maven { url 'http://nexus-in.dev.ihuman.com:8081/repository/maven-public/' }
+
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven {url 'http://developer.huawei.com/repo/'}
+        maven { url 'https://repo1.maven.org/maven2/' }
+
+        google()
+        jcenter()
+
+        //for ihuman sdk
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "com.alibaba:arouter-register:1.0.2"
+        classpath 'com.huawei.agconnect:agcp:1.6.1.300'
+        classpath 'com.meituan.android.walle:plugin:1.1.7'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        // firebase归因
+        classpath "com.google.gms:google-services:4.3.10"
+    }
+}
+
+allprojects {
+    repositories {
+        maven {url 'https://s01.oss.sonatype.org/content/repositories/public/'}
+        maven { url 'http://nexus-in.dev.ihuman.com:8081/repository/jcenter/' }
+        maven { url 'http://nexus-in.dev.ihuman.com:8081/repository/maven-public/' }
+
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://developer.huawei.com/repo/'}
+        maven { url 'https://repo1.maven.org/maven2/' }
+
+        google()
+        jcenter()
+
+        //for ihuman sdk
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force 'org.xerial:sqlite-jdbc:3.34.0'
+        }
+    }
+}
+
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        def requested = details.requested
+//        print("requested 11 group=" + requested.group + " name=" + requested.name)
+//        if (requested.group == 'org.jetbrains.kotlin') {
+//            if (requested.name == "kotlin-android-extensions-runtime" ||
+//                    requested.name == "kotlin-reflect" ||
+//                    requested.name == "kotlin-stdlib" ||
+//                    requested.name == "kotlin-stdlib-common") {
+//                print("requested 22 group=" + requested.group + " name=" + requested.name)
+//                details.useVersion "$kotlin_version"
+//            }
+//        }
+//    }
+//}
+
+project.ext {
+    versionName = "1.0.0"
+    versionCode = 100
+    compileSdkVersion = 33
+    buildToolsVersion = "33.0.2"
+    minSdkVersion = 21
+    targetSdkVersion = 33
+
+    is_build_debug = true
+    is_depend_common_lib = false //common-lib common-business是否以maven lib的形式进行依赖
+}
+
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            def requested = details.requested
+            if (requested.group == 'org.jetbrains.kotlin') {
+                if (requested.name == "kotlin-android-extensions-runtime" ||
+                        requested.name == "kotlin-reflect" ||
+                        requested.name == "kotlin-stdlib" ||
+                        requested.name == "kotlin-stdlib-common") {
+                    details.useVersion "$kotlin_version"
+                }
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+

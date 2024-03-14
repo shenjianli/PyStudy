@@ -1,0 +1,264 @@
+// All dependencies definition except for buildscript.
+ext {
+    ihuman_utils_version = "1.0.0"
+    ihuman_util = "com.ihuman.library.utils:Utils:${ihuman_utils_version}"
+
+    // internal deps
+
+    iHumanCoreVersion = "6.6.76"
+    ihumanSimVersion = "1.0.34"
+    ihumanAes256Version = "1.0.19"
+    iHumanCosVersion = "1.2.28"
+    iHumanPushVersion = "1.0.51"
+    iHumanSpeechEvalVersion = "1.4.57"
+    ihumanWeixinVersion = "3.2.43"
+    ihumanQQVersion = "3.2.33"
+    ihumanAliVersion = "3.2.32"
+    iHumanPrivacyVersion = "3.0.88"
+    iHumanEnvironmentVersion = "1.0.16"
+    iHumanDownloadVersion = "1.0.26"
+    ihumanUpdateVersion = "1.0.20"
+    iHumanAccountUiVersion = "1.0.59"
+    iHumanLaunchVersion = "1.0.20"
+
+    ihumanChannelHuaweiVersion = "3.2.51"
+    ihumanChannelXiaomiVersion = "3.2.39"
+    ihumanChannelOppoVersion = "3.2.41"
+    ihumanChannelVivoVersion = "3.2.36"
+    ihumanChannelMeizuVersion = "3.2.37"
+
+    ihumanMallVersion = "0.0.15"
+    ihumanBenefitVersion = "0.0.33"
+    ihumanBroadcastVersion = "0.0.20"
+    ihumanRecommendVersion = "0.0.36"
+    ihumanDetectVersion = "1.0.25"
+
+
+    ihumanFacebookVersion = '3.2.34'
+    ihumanGoogleVersion = "3.2.48"
+    ihumanAttributionVersion = '1.0.25'
+    ihumanInAppReviewVersion = "0.0.13"
+
+    bekidsAccountUiVersion = "1.0.59"
+    bekidsEnvironmentVersion = '1.0.16'
+    bekidsProtectPrivacyVersion = "3.0.88"
+    bekidsLaunchVersion = '1.0.20'
+
+
+    ihumansdk = [
+            // internal deps
+            iHumanCore      : "com.ihuman.sdk.module:ihuman-core:${iHumanCoreVersion}",
+            iHumanSim : "com.ihuman.sdk.lib:account-sim:${ihumanSimVersion}",
+            iHumanPrivacy   : "com.ihuman.sdk.module:privacy:${iHumanPrivacyVersion}",
+            iHumanEnviroment: "com.ihuman.sdk.lib:environment:${iHumanEnvironmentVersion}",
+            iHumanPush : "com.ihuman.sdk.lib:push:${iHumanPushVersion}",
+            ihumanLibUtil     : "com.ihuman.library.utils:Utils:1.0.0",
+            iHumanCos       : "com.ihuman.sdk.lib:cos:${iHumanCosVersion}",
+            iHumanSpeechEval: "com.ihuman.sdk.lib:speecheval:${iHumanSpeechEvalVersion}",
+            ihumanAes256 : "com.ihuman.sdk.lib:aes256:${ihumanAes256Version}",
+            weixin : "com.ihuman.sdk.lib:wx:${ihumanWeixinVersion}",
+            qq       : "com.ihuman.sdk.lib:qq:${ihumanQQVersion}",
+            ali   : "com.ihuman.sdk.lib:alipay:${ihumanAliVersion}",
+            iHumanDownload : "com.ihuman.sdk.lib:download:${iHumanDownloadVersion}",
+            iHumanUpdate : "com.ihuman.sdk.module:update:${ihumanUpdateVersion}",
+            iHumanChannelHuawei : "com.ihuman.sdk.lib:channel-huawei:${ihumanChannelHuaweiVersion}",
+            iHumanChannelXiaomi : "com.ihuman.sdk.lib:channel-xiaomi:${ihumanChannelXiaomiVersion}",
+            iHumanChannelOppo : "com.ihuman.sdk.lib:channel-oppo:${ihumanChannelOppoVersion}",
+            iHumanChannelVivo : "com.ihuman.sdk.lib:channel-vivo:${ihumanChannelVivoVersion}",
+            iHumanChannelMeizu : "com.ihuman.sdk.lib:channel-meizu:${ihumanChannelMeizuVersion}",
+            iHumanAccountUi : "com.ihuman.sdk.module:account-ui:${iHumanAccountUiVersion}",
+            iHumanLaunch : "com.ihuman.sdk.module:launch:${iHumanLaunchVersion}",
+            iHumanMall : "com.ihuman.sdk.module:mall:${ihumanMallVersion}",
+            iHumanSDKBenefit:"com.ihuman.sdk.module:benefit:${ihumanBenefitVersion}",
+            iHumanSDKBroadcast:"com.ihuman.sdk.module:broadcast:${ihumanBroadcastVersion}",
+            iHumanSDKRecommend   : "com.ihuman.sdk.module:recommend:${ihumanRecommendVersion}",
+            iHumanDetect : "com.ihuman.sdk.lib:detect:${ihumanDetectVersion}",
+
+            iHumanSDKGoogle   : "com.ihuman.sdk.lib:google:${ihumanGoogleVersion}",
+            iHumanSDKFaceBook : "com.ihuman.sdk.lib:facebook:${ihumanFacebookVersion}",
+            iHumanSDKAttribution   : "com.ihuman.sdk.lib:attribution:${ihumanAttributionVersion}",
+
+            bekidsLaunch : "com.ihuman.sdk.module:launch-bekids:${bekidsLaunchVersion}",
+            bekidsSDKAccountUi  : "com.ihuman.sdk.module:account-ui-bekids:${bekidsAccountUiVersion}",
+            bekidsSDKEnvironment   : "com.ihuman.sdk.lib:environment-bekids:${bekidsEnvironmentVersion}",
+            bekidsPrivacy  : "com.ihuman.sdk.module:privacy-bekids:${bekidsProtectPrivacyVersion}",
+            iHumanSDKHuaweiAds : "com.huawei.hms:ads-identifier:3.4.39.302",
+            iHumanInAppReview : "com.ihuman.sdk.lib:in-app-review:${ihumanInAppReviewVersion}"
+    ]
+
+    androidx = [
+            recycler   : "androidx.recyclerview:recyclerview:1.1.0",
+            cardView   : "androidx.cardview:cardview:1.0.0",
+            appCompat  : "androidx.appcompat:appcompat:1.1.0",
+            annotations: "androidx.annotation:annotation:1.1.0",
+            guava      : "com.google.guava:guava:27.1-android",
+            multiDex   : "androidx.multidex:multidex:2.0.1",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:2.1.0-alpha2",
+            core_ktx   : 'androidx.core:core-ktx:1.5.0'
+    ]
+
+    arouter_api_version = "1.5.2"
+    arouter_compiler_version = "1.5.2"
+    arouter_register_version = "1.2.0"
+    arouter = [
+            arouter_api     : "com.alibaba:arouter-api:${arouter_api_version}",
+            arouter_compiler: "com.alibaba:arouter-compiler:${arouter_compiler_version}",
+            arouter_register: "com.alibaba:arouter-register:${arouter_register_version}"
+    ]
+
+    def kotlin_coroutine_version = "1.4.3"
+    kotlin_dp = [
+            stdlib : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            reflect : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
+            coroutine : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlin_coroutine_version}",
+            coroutine_android : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlin_coroutine_version}"
+    ]
+
+    //https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
+    lifecycle_version = "2.2.0"
+    lifecycle = [
+            viewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}",
+            liveData : "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}",
+            saveState: "androidx.lifecycle:lifecycle-viewmodel-savedstate:${lifecycle_version}",
+
+            compiler : "androidx.lifecycle:lifecycle-compiler:${lifecycle_version}"
+    ]
+
+    // https://developer.android.google.cn/jetpack/androidx/releases/activity
+    def activity_version = "1.1.0"
+    activity = [
+            activity    : "androidx.activity:activity:$activity_version",
+            activity_ktx: "androidx.activity:activity-ktx:$activity_version"
+    ]
+
+    // https://developer.android.google.cn/jetpack/androidx/releases/fragment
+    def fragment_version = "1.3.6"
+    fragment = [
+            fragment    : "androidx.fragment:fragment:$fragment_version",
+            fragment_ktx: "androidx.fragment:fragment-ktx:$fragment_version"
+    ]
+
+    vlayout_version = "1.2.36"
+    vlayout = "com.alibaba.android:vlayout:${vlayout_version}"
+
+
+    def mmkv_version ="1.2.7"
+    mmkv = "com.tencent:mmkv-static:${mmkv_version}"
+
+
+    def ihuman_svga_version = "2.6.1"
+    ihuman_svga = "com.github.yyued:SVGAPlayer-Android:${ihuman_svga_version}"
+
+//    svgaControllerVersion = "0.0.20"
+//    svgaController = "com.ihuman.classroom.lib:SVGAController:${svgaControllerVersion}"
+
+    gsonVersion = "2.8.6"
+    gson = "com.google.code.gson:gson:${gsonVersion}"
+
+    exoPlayerVersion = "2.18.1"
+    exoPlayerCore = "com.google.android.exoplayer:exoplayer-core:${exoPlayerVersion}"
+
+
+    // https://github.com/square/okhttp
+    okhttpVersion = "3.10.0"
+    retrofitVersion = "2.4.0"
+    squareup = [
+            okhttp   : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            okhttp_logging : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+            retrofit : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            adapter_rxjava2 : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            converter_gson : "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    ]
+
+    rxjavaVersion = "2.1.0"
+    rxjava = [
+            rxandroid : "io.reactivex.rxjava2:rxandroid:${rxjavaVersion}"
+    ]
+
+    // https://github.com/bumptech/glide
+    glide = "com.github.bumptech.glide:glide:4.11.0"
+    glide_compiler = "com.github.bumptech.glide:compiler:4.11.0"
+
+    picassoVersion = "2.71828"
+    picasso = "com.squareup.picasso:picasso:${picassoVersion}"
+
+    //组件
+    module_library_version = "1.0.1"
+    module_webview_version = "1.0.1"
+    common_business_version = "sea_1.0.0.2"
+    reader_2k_version = "alpha_1.1.2"
+    module_video_version = "1.0.1"
+    common_lib_version = "sea_1.0.0.2"
+
+    common_lib_module = "com.ihuman.oxford:common-lib:${common_lib_version}"
+
+    common_business_module = "com.ihuman.oxford:common-business:${common_business_version}"
+    module_library = "com.ihuman.oxford:module-library:${module_library_version}"
+    module_webview = "com.ihuman.oxford:module-webview:${module_webview_version}"
+    module_video = "com.ihuman.oxford:module-video:${module_video_version}"
+    module_reader2k = "com.ihuman.oxford:module-reader2k:${reader_2k_version}"
+
+
+    lib_secure = "com.ihuman.oxford:lib-secure:1.0.1"
+
+    module_local_version = "1.0.1"
+    module_local = "com.ihuman.oxford:module-local:${module_local_version}"
+
+
+    lib_cocos = "com.ihuman.oxford:lib-cocos:1.1.4"
+
+    // 海外版多语言
+    module_language_seas_version = "sea_1.0.0.3"
+    module_language_seas = "com.ihuman.oxford:module-language:${module_language_seas_version}"
+
+    // apk 引用
+    module_oxford_cocos_version = "sea_1.0.0.2"
+    module_oxford_cocos = "com.ihuman.oxford:oxford-cocos:${module_oxford_cocos_version}"
+    // aab引用
+    module_oxford_cocos_aab_version = "aab_1.0.0.2"
+    module_oxford_cocos_aab = "com.ihuman.oxford:oxford-cocos:${module_oxford_cocos_aab_version}"
+
+//    播放器
+    def player_version = "1.0.0-alpha39"
+    video_player = [
+            widget : "com.ihuman.player:widget:${player_version}",
+            player : "com.ihuman.player:player:${player_version}",
+            ijkplayer : "com.ihuman.player:ijkplayer:${player_version}"
+    ]
+
+    def roomVersion = "2.4.2"
+    room = [
+            room_runtime : "androidx.room:room-runtime:$roomVersion",
+            room_compiler : "androidx.room:room-compiler:$roomVersion",
+            room_ktx : "androidx.room:room-ktx:$roomVersion",
+            room_guava : "androidx.room:room-guava:$roomVersion",
+            room_testing : "androidx.room:room-testing:$roomVersion"
+    ]
+
+    def googleVersion = "27.1-android"
+    google = [
+            guava : "com.google.guava:guava:${googleVersion}"
+    ]
+
+    fastjson = "com.alibaba:fastjson:1.1.71.android"
+
+    walleLib = "com.meituan.android.walle:library:1.1.6"
+
+    //bugly
+    crashreportVersion = '4.0.4'
+    nativecrashreportVersion = '3.9.2'
+    buglyLibs = [
+            crashreport       : "com.tencent.bugly:crashreport:${crashreportVersion}",
+            nativecrashreport : "com.tencent.bugly:nativecrashreport:${nativecrashreportVersion}"
+    ]
+
+    leakcanary = "com.squareup.leakcanary:leakcanary-android:2.8.1"
+
+    androidProcesses = "com.jaredrummler:android-processes:1.1.1"
+
+    zip = "net.lingala.zip4j:zip4j:2.9.0"
+//
+    def eventBusVersion = "3.2.0"
+    eventBus = "org.greenrobot:eventbus:${eventBusVersion}"
+}
+
